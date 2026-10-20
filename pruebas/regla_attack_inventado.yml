@@ -1,0 +1,15 @@
+title: Regla rota de ejemplo
+id: 11111111-2222-3333-4444-555555555555
+status: experimental
+description: Regla con errores típicos de una IA, para probar el validador.
+tags:
+    - attack.credential-access
+    - attack.t9999
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\rundll32.exe'
+    condition: seleccion
+level: high
