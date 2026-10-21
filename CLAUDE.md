@@ -89,10 +89,10 @@ Detalles: la traducción **modifica el objeto regla** (el pipeline lo anota), as
   - `gemini-3.8-flash` → respondió una vez en 72,7 s con `thinking_level=LOW`; otras veces `504 DEADLINE_EXCEEDED` con timeout de 60 s y de 120 s. Diagnóstico: el servicio gratuito está saturado; no es un fallo del código, la clave ni la red (`listar_modelos.py` responde al instante).
   - `ThinkingLevel.MINIMAL` → `400`: no soportado por `gemini-3.8-flash`; su mínimo es `LOW`.
   - Por defecto el SDK no tiene timeout; hay que poner `types.HttpOptions(timeout=<ms>)`.
-- **Siguiente acción inmediata**: ejecutar `probar_modelos.py`, que prueba `gemini-3.8-flash`, `3.7-flash`, `3.6-flash`, `3.5-flash`, `3.5-flash-lite` y `3.1-flash-lite` con timeout de 30 s y sin reintentos (`HttpRetryOptions(attempts=1)`).
-  - Si alguno responde de forma fiable en pocos segundos → ponerlo en `config.py` y seguir.
-  - Si ninguno → **plan B: modelo local con Ollama** en la GPU de Juan (sin colas ni límites). Gemini quedaría para la comparativa posterior.
-- Revisar con `git status` si `hola_ia.py` y `probar_modelos.py` están ya en un commit.
+- `probar_modelos.py` (timeout 30 s, sin reintentos), resultado del 2026-10-21: `3.8-flash` → `504`; `3.7-flash` OK en 18 s; `3.6-flash` OK en 1-2 s (estable en 3 rondas); `3.5-flash` OK en 1-7 s; `3.5-flash-lite` OK en 7 s; `3.1-flash-lite` → `503`.
+- **Modelo elegido: `gemini-3.6-flash`** (ya en `config.py`). Con la pregunta de `hola_ia.py` tarda unos 30 s, porque genera unos 336 tokens de razonamiento.
+- **Límite del nivel gratuito: 5 peticiones por minuto y modelo** (`429 RESOURCE_EXHAUSTED`, `GenerateRequestsPerMinutePerProjectPerModel-FreeTier`). El error trae `retryDelay`. El bucle de corrección y las métricas (varias reglas por descripción) deben espaciar las llamadas o esperar y reintentar al recibir un `429`.
+- Ollama queda como alternativa y para la comparativa entre modelos.
 - Después: diseñar el **prompt** para que el LLM devuelva solo una regla Sigma en YAML (sin explicaciones ni bloques de Markdown, o limpiándolos), guardarla en un archivo, pasarla por `validar.py` y por `detector.py`.
 - Idea acordada: **bucle de corrección**. Si la regla no pasa el validador, devolverla al LLM con el mensaje de error para que la corrija (con un número máximo de intentos).
 - Recomendable refactorizar en este punto: convertir `validar.py` y `detector.py` en funciones reutilizables (que devuelvan resultados en lugar de imprimir y salir) y crear una capa de "proveedor de IA" intercambiable (Gemini, Ollama, otros) para poder compararlos.
