@@ -93,9 +93,12 @@ Detalles: la traducción **modifica el objeto regla** (el pipeline lo anota), as
 - **Modelo elegido: `gemini-3.6-flash`** (ya en `config.py`). Con la pregunta de `hola_ia.py` tarda unos 30 s, porque genera unos 336 tokens de razonamiento.
 - **Límite del nivel gratuito: 5 peticiones por minuto y modelo** (`429 RESOURCE_EXHAUSTED`, `GenerateRequestsPerMinutePerProjectPerModel-FreeTier`). El error trae `retryDelay`. El bucle de corrección y las métricas (varias reglas por descripción) deben espaciar las llamadas o esperar y reintentar al recibir un `429`.
 - Ollama queda como alternativa y para la comparativa entre modelos.
-- Después: diseñar el **prompt** para que el LLM devuelva solo una regla Sigma en YAML (sin explicaciones ni bloques de Markdown, o limpiándolos), guardarla en un archivo, pasarla por `validar.py` y por `detector.py`.
-- Idea acordada: **bucle de corrección**. Si la regla no pasa el validador, devolverla al LLM con el mensaje de error para que la corrija (con un número máximo de intentos).
-- Recomendable refactorizar en este punto: convertir `validar.py` y `detector.py` en funciones reutilizables (que devuelvan resultados en lugar de imprimir y salir) y crear una capa de "proveedor de IA" intercambiable (Gemini, Ollama, otros) para poder compararlos.
+- **Hecho (2026-10-21)**:
+  - `validar.py` → función `validar(texto)`, que devuelve `{motivo, detalles, avisos, tecnicas}` (`motivo` es `None` si la regla vale). `detector.py` → `cargar_eventos(ruta)` y `detectar(texto_regla, con)`. Ambos siguen funcionando desde la línea de comandos igual que antes.
+  - `ia.py` → `preguntar(instrucciones, conversacion)`, con la conversación como pares `(rol, texto)`. Reintenta ante `429` (espera el `retryDelay`) y ante `503`/`504` (10, 20, 40 s). Devuelve el texto y los datos de la llamada: modelo, segundos y tokens. Es la capa intercambiable: para Ollama bastaría otro módulo con la misma función.
+  - `generar.py ["descripción"]` → prompt de sistema (solo YAML, telemetría Sysmon, ATT&CK obligatorio), limpieza de bloques Markdown y **bucle de corrección** (`MAX_INTENTOS = 3`; devuelve la regla y el error en la misma conversación). Guarda la regla en `reglas/generadas/regla_<fecha>.yml` y la ejecuta con el detector.
+  - Resultado: la regla generada para LSASS/comsvcs es válida al primer intento y da 1 alerta. El bucle se ha probado inyectando `attack.t9999` como primera respuesta: Gemini lo corrigió en el intento 2.
+  - Detalle: el modelo pone `date: 2023/10/25` (formato antiguo) y `author: Detection Engineer`. Los validadores no lo avisan.
 
 ### Fase 5 — Métricas. PENDIENTE
 - Conceptos ya explicados: verdadero positivo, falso negativo (ejemplo: cambiar `MiniDump` por `MiniDumpX` dio 0 alertas), falso positivo, verdadero negativo.
