@@ -56,7 +56,12 @@ sigma-ai-validator/
 ├── validar.py                # validador en tres niveles (ver abajo)
 ├── listar_modelos.py         # lista modelos Gemini "flash" con generateContent
 ├── hola_ia.py                # primera llamada a Gemini con timeout, cronómetro y tokens
-└── probar_modelos.py         # prueba varios modelos Gemini de golpe (resultado pendiente)
+├── probar_modelos.py         # prueba varios modelos Gemini de golpe
+├── ia.py                     # preguntar(instrucciones, conversacion): llamada al modelo con reintentos
+├── generar.py                # descripción -> regla Sigma con bucle de corrección
+├── descargar.py              # baja los datasets de OTRF a datos/
+├── metricas.py               # N reglas por técnica: válidas, detección real y falsos positivos
+└── reglas/generadas/         # reglas generadas por la IA (por técnica en metricas.py)
 ```
 
 ## Plan por fases y estado
@@ -100,11 +105,19 @@ Detalles: la traducción **modifica el objeto regla** (el pipeline lo anota), as
   - Resultado: la regla generada para LSASS/comsvcs es válida al primer intento y da 1 alerta. El bucle se ha probado inyectando `attack.t9999` como primera respuesta: Gemini lo corrigió en el intento 2.
   - Detalle: el modelo pone `date: 2023/10/25` (formato antiguo) y `author: Detection Engineer`. Los validadores no lo avisan.
 
-### Fase 5 — Métricas. PENDIENTE
+### Fase 5 — Métricas. EN CURSO (aquí lo dejamos, 2026-10-21)
 - Conceptos ya explicados: verdadero positivo, falso negativo (ejemplo: cambiar `MiniDump` por `MiniDumpX` dio 0 alertas), falso positivo, verdadero negativo.
-- Las IAs no son deterministas: generar **varias reglas por descripción** y medir cuántas pasan la validación y detectan el ataque ("4 de 5").
-- Falsos positivos: decidir con Juan qué usar como actividad "normal". Propuesta: ejecutar cada regla contra datasets de **otras técnicas** como control negativo, y valorar si hay datos benignos adecuados.
-- Registrar tiempo de respuesta y tokens (`response.usage_metadata`) por regla.
+- **Hecho** (commit `4824eb7`):
+  - `descargar.py` baja el dataset de LSASS y 5 controles negativos de otras tácticas: `psh_python_webserver` (execution), `cmd_seatbelt_group_user` (discovery), `cmd_mshta_vbscript_execute_psh` (defense_evasion), `schtask_create` (lateral_movement) y `empire_persistence_registry_modification_run_keys_standard_user` (persistence, 40 569 eventos, 80 MB).
+  - `detector.py`: `crear_backend()` = pipeline Sysmon + etapa propia que añade `Channel='Microsoft-Windows-Sysmon/Operational'`. La limitación del canal era real: el dataset de Empire tiene 4 eventos EventID 1 del canal `System`. Además, salta líneas en blanco (las tiene `schtask_create`) y guarda listas y diccionarios como texto JSON (los tiene Empire). `validar.py` usa el mismo backend.
+  - `metricas.py`: genera `REGLAS_POR_CASO = 5` reglas por caso (`CASOS`: técnica, descripción, dataset y regla de referencia). La **regla de referencia manual** marca qué eventos son el ataque real. Detección real = alertas que coinciden con ella; falso positivo = cualquier otra alerta, en el dataset del ataque o en los negativos. Si la API falla, lo anota y sigue. Guarda las reglas en `reglas/generadas/<técnica>/` y los resultados en `resultados/metricas_<modelo>_<fecha>.json`, e imprime una tabla Markdown.
+- **Bloqueo: cuota diaria de Gemini gratis = 20 peticiones por día y modelo** (`GenerateRequestsPerDayPerProjectPerModel-FreeTier`). Se agotó para `3.6-flash` y `3.5-flash` el 2026-10-21, y la primera ejecución de `metricas.py` dio 0/5 (503 y 429). `ia.py` ya no espera ante un límite diario (`"PerDay"` en el error). Los 503 son frecuentes.
+- Al cerrar la sesión quedó lanzada una prueba de `metricas.py` con `gemini-3.5-flash-lite` (forzado con `runpy`, sin tocar `config.py`). Su resultado no se llegó a ver. Si existe `resultados/`, revisarlo y decidir si se versiona.
+- **Siguiente decisión (para Juan)**: 20 peticiones al día no bastan (5 reglas × hasta 3 intentos × varias técnicas). Opciones:
+  1. **Ollama local** en la GPU (recomendado): sin cuotas; módulo nuevo con la misma `preguntar()`. Requiere instalar Ollama y elegir el modelo (por ejemplo, `qwen` o `llama` de 7-8B).
+  2. Gemini de pago.
+  3. Repartir las ejecuciones en varios días. Gemini se quedaría solo para la comparativa.
+- Pendiente después: hacer el proveedor configurable en `config.py` (Gemini/Ollama), añadir más casos a `CASOS` y crear `requirements.txt`.
 
 ### Fase 6 — Escalar y presentar. PENDIENTE
 - Varias técnicas ATT&CK con sus datasets de OTRF.
