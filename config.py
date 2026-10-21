@@ -1,2 +1,2 @@
-# Configuración del proyecto
-MODELO = "gemini-3.8-flash"
+﻿# Configuración del proyecto
+MODELO = "gemini-3.6-flash"
