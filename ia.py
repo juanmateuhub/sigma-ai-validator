@@ -35,6 +35,9 @@ def preguntar(instrucciones, conversacion, max_esperas=3):
         except errors.APIError as error:
             if error.code not in (429, 503, 504) or espera == max_esperas:
                 raise
+            # El límite diario (20 peticiones en el nivel gratuito) no se arregla esperando un minuto
+            if "PerDay" in str(error):
+                raise
             if error.code == 429:
                 # El mensaje de error dice cuánto esperar: "Please retry in 57.2s"
                 pausa = re.search(r"retry in ([\d.]+)s", str(error))

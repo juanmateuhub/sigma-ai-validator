@@ -1,9 +1,8 @@
 import sys
 from sigma.collection import SigmaCollection
-from sigma.backends.sqlite import sqliteBackend
-from sigma.pipelines.sysmon import sysmon_pipeline
 from sigma.validation import SigmaValidator
 from sigma.validators.core import validators
+from detector import crear_backend
 
 
 def validar(texto):
@@ -16,7 +15,7 @@ def validar(texto):
 
     # Nivel 1: ¿se puede leer y traducir la regla?
     try:
-        sqliteBackend(processing_pipeline=sysmon_pipeline()).convert(SigmaCollection.from_yaml(texto))
+        crear_backend().convert(SigmaCollection.from_yaml(texto))
     except Exception as error:
         resultado.update(motivo="la regla no se puede leer o traducir.", detalles=[str(error)])
         return resultado
