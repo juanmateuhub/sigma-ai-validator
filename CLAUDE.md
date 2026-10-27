@@ -136,12 +136,25 @@ Detalles: la traducción **modifica el objeto regla** (el pipeline lo anota), as
   | qwen3:8b | + pistas | 1/5 | 0/5 | 202.9 |
 
 - Conclusión: el bucle de corrección con mensajes claros sube la **validez**, pero los modelos de 7-8B fallan en la **lógica** (padre/hijo invertidos, `lsass.exe` como `ParentImage`, `comsvcs.dll,MiniDump` con coma). Eso solo lo detecta la prueba contra datos reales. `qwen3:8b` es unas 15 veces más lento y peor en sintaxis Sigma. Con 5 reglas la variación entre ejecuciones es grande (0/5 o 1/5).
-- Siguiente decisión (para Juan): dar un ejemplo de regla Sigma en el prompt (few-shot) de otra técnica, subir `REGLAS_POR_CASO`, volver a Gemini cuando se renueve la cuota diaria para compararlo, o pasar a añadir más técnicas a `CASOS`. Pendiente también `requirements.txt`.
+### Fase 6 — Escalar y presentar. CASI HECHA (aquí lo dejamos, 2026-10-27 noche)
+Juan pidió "haz todo lo que quede para subirlo a GitHub" y, al ver los resultados, decidió **dejar los modelos como están** (sin más mejoras de prompt). Hecho:
+- **6 técnicas** en `metricas.py`, reutilizando los datasets ya descargados: cada dataset es el ataque de su caso y control negativo de los otros 5. Reglas de referencia a mano en `reglas/`: `lsass_comsvcs` (T1003.001), `mshta_vbscript` (T1218.005), `schtasks_create` (T1053.005), `run_key_powershell` (T1547.001, `registry_set`), `netsh_firewall_regla` (T1686.003) y `seatbelt` (T1082). Matriz comprobada: cada una salta solo en su dataset.
+- **ATT&CK v20** en pySigma: Defense Evasion ya no existe (ahora `stealth` y `defense-impairment`), y T1562.004 pasó a T1686.003. El validador explica las tácticas válidas y la táctica de cada técnica.
+- Validador: una categoría que no está en `sysmon_generic_logsource_eventid_mapping` (p. ej. `registry`) da ERROR. `detector.detectar()` devuelve `[]` si falta la columna (`no such column`); antes tiraba la medición. `metricas.py` anota los errores de ejecución y sigue.
+- `generar.py`: regla de ejemplo (certutil, T1105) en el prompt; `CON_EJEMPLO=0` la quita. Variables de entorno: `PROVEEDOR`, `MODELO`, `CON_EJEMPLO`, `REGLAS_POR_CASO`.
+- Criterio: una regla **detecta** si alerta en al menos un evento del ataque. `resumen.py` usa la última medición por (modelo, prompt), no cuenta los errores de la API y saca 3 tablas.
+- `requirements.txt` (probado en un venv limpio), `LICENSE` (MIT), `README.md` (escrito, **sin commit**; tiene `<!-- RESULTADOS -->` para pegar la salida de `resumen.py`).
+- Revisión de secretos: el historial no tiene la clave (solo el texto `GEMINI_API_KEY=...` de este archivo); `.env` y `datos/` nunca se han versionado.
+- Resultados (detectan sin FP): gemini-3.6-flash con ejemplo 8/8 (4 peticiones fallaron por cuota/500; T1082 sin datos); qwen2.5-coder:7b 3/30 con y sin ejemplo (válidas 77 % y 60 %); qwen3:8b con ejemplo 1/18 (válidas 83 %). `gemini-3.5-flash` se quedó sin cuota tras 2 reglas y se borró.
+- Hallazgo para el README: `qwen3` copia del ejemplo el bloque `filtro_legitimo` y excluye `ParentImage: cmd.exe`, justo el padre del ataque de Seatbelt. El ejemplo enseña el formato, pero también contagia lógica.
 
-### Fase 6 — Escalar y presentar. PENDIENTE
-- Varias técnicas ATT&CK con sus datasets de OTRF.
-- Tabla de resultados por técnica (y por modelo si se hace la comparativa).
-- README atractivo para reclutadores, `requirements.txt`, y subir el repositorio a GitHub.
+**Pendiente al retomar:**
+1. Al cerrar quedó en marcha `qwen3:8b` **sin ejemplo** (3 reglas por caso). Si no existe `resultados\metricas_qwen3-8b_sin-ejemplo_*.json`, borrar `reglas\generadas\*\qwen3-8b_sin-ejemplo_*` y relanzar: `$env:PROVEEDOR='ollama'; $env:MODELO='qwen3:8b'; $env:CON_EJEMPLO='0'; $env:REGLAS_POR_CASO='3'; python metricas.py` (unos 40 min).
+2. `python resumen.py` → pegar las tablas en el README (sección Resultados) con un comentario corto: Gemini detecta casi siempre y los locales casi nunca; validez ≠ detección; el efecto del ejemplo.
+3. Commit del README.
+4. Publicar (preguntar a Juan antes): `gh` no está instalado y no hay remoto. Opciones: crear el repositorio vacío `sigma-ai-validator` en github.com y hacer `git remote add origin ...` + `git push`, o instalar `gh` (`winget install GitHub.cli`, `gh auth login`). Proponer renombrar la rama `master` a `main`.
+5. Avisar a Juan: los commits llevan el correo `al416013@uji.es`, que será público. Si no lo quiere, se puede usar el correo noreply de GitHub para los commits nuevos; cambiar los antiguos implica reescribir el historial, así que es decisión suya.
+6. Decidir si CLAUDE.md se publica (contiene notas personales de trabajo) o se añade a `.gitignore` / se saca del índice.
 
 ## Convenciones
 
