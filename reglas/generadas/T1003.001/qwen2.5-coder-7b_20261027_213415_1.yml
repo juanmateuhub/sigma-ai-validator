@@ -1,0 +1,19 @@
+title: PowerShell Usage of rundll32.exe to Execute MiniDump on lsass.exe
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects the use of PowerShell to execute rundll32.exe with the MiniDump function from comsvcs.dll targeting lsass.exe, a common technique for credential dumping.
+author: Your Name
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image: "*\\powershell.exe"
+    CommandLine: "*rundll32.exe comsvcs.dll,MiniDump"
+    ParentCommandLine: "*lsass.exe"
+  condition: selection
+falsepositives:
+  - Legitimate use of PowerShell for administrative tasks.
+level: critical
+tags: [attack.credential-access, attack.t1003.001]

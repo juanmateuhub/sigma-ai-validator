@@ -1,0 +1,112 @@
+[
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "numero": 1,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 23.8,
+    "tokens": 2391,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_20261027_213415_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "psh_python_webserver_2020-10-2900161507": 0,
+      "cmd_seatbelt_group_user_2020-11-0216391814": 0,
+      "cmd_mshta_vbscript_execute_psh_2020-10-2202580804": 0,
+      "schtask_create_2020-12-1907003032": 0,
+      "empire_persistence_registry_modification_run_keys_standard_user_2020-09-04030609": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "numero": 2,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 21.7,
+    "tokens": 2461,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_20261027_213415_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "psh_python_webserver_2020-10-2900161507": 0,
+      "cmd_seatbelt_group_user_2020-11-0216391814": 0,
+      "cmd_mshta_vbscript_execute_psh_2020-10-2202580804": 0,
+      "schtask_create_2020-12-1907003032": 0,
+      "empire_persistence_registry_modification_run_keys_standard_user_2020-09-04030609": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "numero": 3,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 23.3,
+    "tokens": 2674,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_20261027_213415_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "psh_python_webserver_2020-10-2900161507": 0,
+      "cmd_seatbelt_group_user_2020-11-0216391814": 0,
+      "cmd_mshta_vbscript_execute_psh_2020-10-2202580804": 0,
+      "schtask_create_2020-12-1907003032": 0,
+      "empire_persistence_registry_modification_run_keys_standard_user_2020-09-04030609": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "numero": 4,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 23.0,
+    "tokens": 2470,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_20261027_213415_4.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "psh_python_webserver_2020-10-2900161507": 0,
+      "cmd_seatbelt_group_user_2020-11-0216391814": 0,
+      "cmd_mshta_vbscript_execute_psh_2020-10-2202580804": 0,
+      "schtask_create_2020-12-1907003032": 0,
+      "empire_persistence_registry_modification_run_keys_standard_user_2020-09-04030609": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 22.1,
+    "tokens": 2367,
+    "motivo": "la regla no indica ninguna técnica ATT&CK."
+  }
+]

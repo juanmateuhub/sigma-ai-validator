@@ -1,0 +1,21 @@
+title: Suspicious MiniDump creation by rundll32.exe targeting lsass.exe
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects a process that uses rundll32.exe to create a MiniDump of lsass.exe, which is a known method to extract credentials.
+author: John Doe
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    ParentImage: "C:\\Windows\\System32\\rundll32.exe"
+    Image: "C:\\Windows\\System32\\comsvcs.dll"
+    CommandLine: "*MiniDump*"
+  condition: selection
+falsepositives:
+  - System administrators using remote debugging tools
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001

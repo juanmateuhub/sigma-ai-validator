@@ -1,0 +1,23 @@
+title: Memory Dumps of Lsass.exe using rundll32.exe
+id: 9e107d9d-20d4-42d8-83c8-7c7d208a9985
+status: test
+description: Detects an attack where an attacker uses PowerShell to call the MiniDump function from comsvcs.dll to dump the memory of lsass.exe, a process known for storing credentials.
+author: Example Author
+date: 2023-04-01
+logsource:
+  product: windows
+  service: sysmon
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    ParentImage: "*powershell.exe"
+    Image: "*rundll32.exe"
+    CommandLine: "*comsvcs.dll*MiniDump*"
+  condition: selection
+falsepositives:
+  - Normal use of rundll32.exe for legitimate purposes
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001
