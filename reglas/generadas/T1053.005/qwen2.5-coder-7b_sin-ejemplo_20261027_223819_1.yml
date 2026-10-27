@@ -1,0 +1,20 @@
+title: Suspicious Scheduling of Remote Command Execution
+id: 3c4a5e5b-6d7c-4e5f-8a9b-cdef12345678
+status: test
+description: Detects the creation of a scheduled task on a remote computer that may indicate malicious activity.
+author: Example Author
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image: '*\\cmd.exe'
+    CommandLine: '/C schtasks /create /s * /tn * /tr *'
+  condition: selection
+falsepositives:
+  - Administrative tasks that require cmd.exe for scheduled tasks.
+level: medium
+tags:
+  - attack.credential-access
+  - attack.t1003.001

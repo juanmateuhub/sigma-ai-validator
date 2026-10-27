@@ -1,0 +1,24 @@
+title: Persistencia del Agente de PowerShell mediante el Registro
+id: 5f3c1b8e-2d4a-4c6b-9e7f-1a2b3c4d5e71
+status: experimental
+description: Detecta la escritura de un valor en la clave del registro HKCU\Software\Microsoft\Windows\CurrentVersion\Run para lograr persistencia del Agente de PowerShell.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.persistence
+    - attack.t1547.002
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    seleccion:
+        EventID: 4657
+        TargetObject: 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+    filtro_legitimo:
+        EventID: 4657
+        TargetObject: 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+        Image|endswith: '\\powershell.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Usuarios normales que modifican la clave del registro para fines legítimos
+level: high

@@ -1,0 +1,7 @@
+pySigma==1.5.1
+pySigma-backend-sqlite==2.0.0
+pysigma-pipeline-sysmon==2.0.0
+PyYAML==6.0.3
+google-genai==2.31.0
+ollama==0.6.3
+python-dotenv==1.2.4

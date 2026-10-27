@@ -1,0 +1,29 @@
+title: Creacion de Tarea Programada Remota desde PowerShell Executando Cmd
+id: e4a7b2c9-8d1f-4b3a-9e2c-5f6a7b8c9d0e
+status: experimental
+description: Detecta la ejecución de schtasks.exe a través de cmd.exe invocado desde PowerShell para crear una tarea programada en un equipo remoto.
+author: Detection Engineering
+date: 2026-03-30
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1053.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_parent:
+        ParentImage|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    selection_cmd:
+        Image|endswith: '\cmd.exe'
+        CommandLine|contains|all:
+            - 'schtasks'
+            - '/create'
+            - '/s'
+            - 'cmd'
+    condition: selection_parent and selection_cmd
+falsepositives:
+    - Scripts de administración legítimos que despliegan tareas programadas de forma remota mediante PowerShell.
+level: high

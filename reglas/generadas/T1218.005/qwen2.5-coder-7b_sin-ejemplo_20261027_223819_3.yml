@@ -1,0 +1,20 @@
+title: Suspicious mshta.exe Execution with VBScript Code
+id: 12345678-1234-1234-1234-1234567890ab
+status: test
+description: Detects the execution of mshta.exe with VBScript code embedded directly in the command line, indicating a potential attempt to bypass file-based detection.
+author: John Doe
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    CommandLine: '*mshta.exe* vbscript:Execute*'
+  condition: selection
+falsepositives:
+  - System administrators running scripts for legitimate purposes
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

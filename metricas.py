@@ -163,7 +163,8 @@ if __name__ == "__main__":
     for caso in CASOS:
         filas = [r for r in resultados if r["tecnica"] == caso["tecnica"]]
         validas = [r for r in filas if r["valida"]]
-        detectan = [r for r in validas if r["detectados"] == r["ataques"]]
+        # Basta con alertar en un evento del ataque: una cadena (cmd -> schtasks) se detecta una vez
+        detectan = [r for r in validas if r["detectados"] > 0]
         sin_fp = [r for r in detectan if r["falsos_positivos"] == 0]
         con_datos = [r for r in filas if r["intentos"]]
         intentos = sum(r["intentos"] for r in con_datos) / max(len(con_datos), 1)

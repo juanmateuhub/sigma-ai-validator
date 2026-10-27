@@ -1,0 +1,23 @@
+title: Creación de una tarea programada remota
+id: 7a9b8c7d-6e5f-4432-9876-543210987654
+status: stable
+description: Detecta la creación de una tarea programada remota en un equipo remoto usando schtasks.exe, que puede ser parte de una actividad de persistencia.
+author: Detection Engineering
+date: 2023-05-01
+tags:
+    - attack.persistence
+    - attack.t1053.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains: '/s'
+        CommandLine|contains: '/create'
+    filtro_legitimo:
+        ParentImage|endswith: '\powershell.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan schtasks para administrar tareas programadas
+level: high

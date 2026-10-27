@@ -1,0 +1,24 @@
+title: Llamada a MiniDump de comsvcs.dll por PowerShell para volcar memoria
+id: 6f7d8e9f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+status: experimental
+description: Detecta la invocación de MiniDump de comsvcs.dll por PowerShell para volcar la memoria del proceso lsass.exe, una técnica común para el robo de credenciales.
+author: Detection Engineering
+date: 2026-11-01
+tags:
+    - attack.execution
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains|all:
+            - 'rundll32.exe'
+            - 'comsvcs.dll,MiniDump'
+    filtro_legitimo:
+        CommandLine|endswith: '\lsass.exe'
+    condition: seleccion and filtro_legitimo
+falsepositives:
+    - Administradores que usan PowerShell para diagnosticar problemas
+level: high

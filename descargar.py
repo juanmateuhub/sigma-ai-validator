@@ -6,10 +6,10 @@ from urllib.request import urlopen
 BASE = "https://raw.githubusercontent.com/OTRF/Security-Datasets/master/datasets/atomic/windows/"
 CARPETA = Path("datos")
 
-# Ruta dentro del repositorio de OTRF (táctica/host/nombre.zip)
+# Ruta dentro del repositorio de OTRF (táctica/host/nombre.zip). Cada dataset es el ataque
+# de un caso de metricas.py y, a la vez, control negativo para los demás casos.
 DATASETS = [
     "credential_access/host/psh_lsass_memory_dump_comsvcs.zip",
-    # Controles negativos: técnicas de otras tácticas
     "execution/host/psh_python_webserver.zip",
     "discovery/host/cmd_seatbelt_group_user.zip",
     "defense_evasion/host/cmd_mshta_vbscript_execute_psh.zip",

@@ -1,0 +1,27 @@
+title: Suspicious netsh advfirewall rule addition
+id: 6f3c1b8e-2d4a-4c6b-9e7f-1a2b3c4d5e6f
+status: experimental
+description: Detects suspicious netsh advfirewall rule addition that could be used to expose a web server.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.command-and-control
+    - attack.t1012
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains|all:
+            - 'netsh'
+            - 'advfirewall'
+            - 'rule'
+            - 'add'
+            - 'in'
+    filtro_legitimo:
+        CommandLine|endswith: '\python.exe'
+    condition: selection and not filtro_legitimo
+falsepositives:
+    - Administradores que usan PowerShell para administrar el cortafuegos
+level: high

@@ -1,0 +1,22 @@
+title: Esecuzione di PowerShell via mshta.exe con VBScript
+id: a5b6c7d8-e9f0-11ed-80b3-0242ac120002
+status: experimental
+description: Detecta la ejecución de PowerShell mediante mshta.exe con un VBScript en línea de comandos, una técnica utilizada para bypassar mecanismos de protección.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\mshta.exe'
+        CommandLine|contains: 'vbscript:Execute'
+    filtro_legitimo:
+        ParentImage|endswith: '\cmd.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan mshta.exe para ejecutar scripts legítimos
+level: high

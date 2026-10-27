@@ -1,0 +1,24 @@
+title: Volcado de memoria de lsass.exe con rundll32.exe
+id: 3a4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+status: stable
+description: Detecta el uso de rundll32.exe para volcar la memoria de lsass.exe, un método común para extraer credenciales.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\rundll32.exe'
+        CommandLine|contains|all:
+            - 'comsvcs.dll,MiniDump'
+            - 'lsass.exe'
+    filtro_legitimo:
+        CommandLine|contains: 'powershell.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan PowerShell para gestionar procesos
+level: high

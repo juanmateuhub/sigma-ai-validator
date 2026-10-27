@@ -1,0 +1,25 @@
+title: Añadir regla de entrada al cortafuegos para Python.exe
+id: 68c8b0d0-bc24-47d1-a68b-2b8e7c9d1e2f
+status: experimental
+description: Detecta la ejecución de netsh advfirewall desde PowerShell para añadir una regla de entrada al cortafuegos que permite conexiones a Python.exe, técnica utilizada para obfuscar el origen de la actividad.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.credential-access
+    - attack.t1105
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains|all:
+            - 'netsh advfirewall firewall add rule'
+            - 'action=allow'
+            - 'program=python.exe'
+    filtro_legitimo:
+        CommandLine|contains: 'msiexec.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan PowerShell para gestionar el cortafuegos
+level: high

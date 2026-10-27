@@ -1,0 +1,22 @@
+title: Ejecución de Seatbelt.exe para reconocimiento de sistema y usuario
+id: 123e4567-e89b-12d3-a456-426614174000
+status: experimental
+description: Detecta la ejecución de Seatbelt.exe con el parámetro -group=user, que es una técnica común para reconocer el sistema y la configuración del usuario.
+author: Detection Engineering
+date: 2023-10-27
+tags:
+    - attack.discovery
+    - attack.t1135
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\Seatbelt.exe'
+        CommandLine|contains: '-group=user'
+    filtro_legitimo:
+        ParentImage|endswith: '\cmd.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan Seatbelt para auditorías de seguridad
+level: high

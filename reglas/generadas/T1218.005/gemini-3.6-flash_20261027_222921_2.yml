@@ -1,0 +1,25 @@
+title: Ejecucion inline de VBScript con Mshta lanzando PowerShell desde CMD
+id: 8d2f1e4a-9b7c-4d3e-8f2a-1b4c6d8e9f0a
+status: experimental
+description: Detecta la ejecucion de mshta.exe invocando codigo VBScript en linea (vbscript:Execute) para ejecutar PowerShell desde cmd.exe sin escribir archivos en disco.
+author: Detection Engineering
+date: 2026-03-30
+tags:
+    - attack.stealth
+    - attack.execution
+    - attack.t1218.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        ParentImage|endswith: '\cmd.exe'
+        Image|endswith: '\mshta.exe'
+        CommandLine|contains|all:
+            - 'vbscript'
+            - 'Execute'
+            - 'powershell'
+    condition: selection
+falsepositives:
+    - Scripts de administracion legitimos muy poco frecuentes
+level: high

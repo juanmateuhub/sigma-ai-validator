@@ -1,0 +1,22 @@
+title: Ejecución de Seatbelt con el grupo de comprobaciones de usuario
+id: e5d4c3b2-a1b0-4987-6f5e-4d3c2b1a0987
+status: experimental
+description: Detecta la ejecución de Seatbelt.exe con el grupo de comprobaciones de usuario, un indicativo de intento de reconnaissance.
+author: Detection Engineering
+date: 2026-11-01
+tags:
+    - attack.discovery
+    - attack.t1018
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\Seatbelt.exe'
+        CommandLine|contains: '-group=user'
+    filtro_legitimo:
+        ParentImage|endswith: '\cmd.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan Seatbelt para auditoría de sistemas
+level: high

@@ -1,0 +1,247 @@
+[
+  {
+    "tecnica": "T1003.001",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 12.6,
+    "tokens": 796,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\gemini-3.6-flash_20261027_222921_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 7.4,
+    "tokens": 783,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\gemini-3.6-flash_20261027_222921_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 5.5,
+    "tokens": 1872,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1218.005\\gemini-3.6-flash_20261027_222921_1.yml",
+    "tecnicas_regla": [
+      "T1218.005"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 10.8,
+    "tokens": 2615,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1218.005\\gemini-3.6-flash_20261027_222921_2.yml",
+    "tecnicas_regla": [
+      "T1218.005"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 9.0,
+    "tokens": 806,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\gemini-3.6-flash_20261027_222921_1.yml",
+    "tecnicas_regla": [
+      "T1059.001",
+      "T1053.005"
+    ],
+    "detectados": 1,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 2.3,
+    "tokens": 784,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\gemini-3.6-flash_20261027_222921_2.yml",
+    "tecnicas_regla": [
+      "T1053.005"
+    ],
+    "detectados": 1,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 12.0,
+    "tokens": 791,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1547.001\\gemini-3.6-flash_20261027_222921_1.yml",
+    "tecnicas_regla": [
+      "T1547.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": false,
+    "error_api": "500 INTERNAL. {'error': {'code': 500, 'message': 'Internal error encountered.', 'status': 'INTERNAL'}}",
+    "intentos": 0
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 233.3,
+    "tokens": 6358,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\gemini-3.6-flash_20261027_222921_1.yml",
+    "tecnicas_regla": [
+      "T1059.001"
+    ],
+    "detectados": 2,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": false,
+    "error_api": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. ",
+    "intentos": 0
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": false,
+    "error_api": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. ",
+    "intentos": 0
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "gemini-3.6-flash",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": false,
+    "error_api": "429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. ",
+    "intentos": 0
+  }
+]

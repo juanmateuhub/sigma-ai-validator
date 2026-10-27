@@ -1,0 +1,24 @@
+title: Creación de tarea programada remota con schtasks
+id: 5f3c1b8e-2d4a-4c6b-9e7f-1a2b3c4d5e70
+status: experimental
+description: Detecta la creación de una tarea programada remota utilizando schtasks /create con la opción /s, técnica usada para comprometer sistemas.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.privilege-escalation
+    - attack.t1053.003
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains|all:
+            - '/create'
+            - '/s'
+    filtro_legitimo:
+        ParentImage|endswith: '\powershell.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que crean tareas programadas de manera legal
+level: high

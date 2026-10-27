@@ -1,0 +1,22 @@
+title: Uso de mshta.exe con VBScript para ejecutar PowerShell
+id: 9d3e2f1b-4a5b-4c6d-7e8f-9a0b1c2d3e4f
+status: experimental
+description: Detecta el uso de mshta.exe con VBScript para ejecutar PowerShell sin crear archivos temporales en disco.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.execution
+    - attack.t1047
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\mshta.exe'
+        CommandLine|contains: 'vbscript:Execute'
+    filtro_legitimo:
+        ParentImage|endswith: '\cmd.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan mshta.exe para ejecutar scripts VBScript legítimos
+level: high

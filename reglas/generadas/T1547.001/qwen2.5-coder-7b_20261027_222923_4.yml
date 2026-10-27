@@ -1,0 +1,23 @@
+title: Suspicious Registry Modification to Achieve Persistence
+id: 6f3c1b8e-2d4a-4c6b-9e7f-1a2b3c4d5e6f
+status: experimental
+description: Detects suspicious registry modification to achieve persistence by writing to the Run key in HKCU.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.persistence
+    - attack.t1055
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    seleccion:
+        EventID: 4663
+        TargetObject|endswith: '\Software\Microsoft\Windows\CurrentVersion\Run'
+        Details|contains: 'powershell.exe'
+    filtro_legitimo:
+        Details|contains: 'startup'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que configuran manualmente valores de inicio de sesión
+level: high

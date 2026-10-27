@@ -1,0 +1,23 @@
+title: Volcado de Memoria de LSASS usando Comsvcs.dll y Rundll32
+id: e4b9a1c8-8f2e-4b7d-9a6c-3e1f5d2b9a7c
+status: experimental
+description: Detecta el uso de rundll32.exe invocando la función MiniDump en comsvcs.dll para volcar la memoria del proceso lsass.exe y extraer credenciales.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_image:
+        Image|endswith: '\rundll32.exe'
+    selection_cmdline:
+        CommandLine|contains|all:
+            - 'comsvcs.dll'
+            - 'MiniDump'
+    condition: selection_image and selection_cmdline
+falsepositives:
+    - Uso legítimo de diagnóstico por parte de administradores de sistemas (muy raro en combinación con comsvcs.dll y MiniDump).
+level: high

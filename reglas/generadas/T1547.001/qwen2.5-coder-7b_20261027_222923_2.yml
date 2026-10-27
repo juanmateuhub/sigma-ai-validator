@@ -1,0 +1,23 @@
+title: Persistencia a través de registros de inicio de sesión
+id: 7c3d1e2f-3a4b-5c6d-7e8f-9a0b1c2d3e4f
+status: experimental
+description: Detecta la escritura en HKCU\Software\Microsoft\Windows\CurrentVersion\Run para establecer persistencia.
+author: Detection Engineering
+date: 2026-11-01
+tags:
+    - attack.persistence
+    - attack.t1547.001
+logsource:
+    product: windows
+    category: registry_event
+detection:
+    seleccion:
+        EventID: 4700
+        TargetObject|endswith: 'HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+        Details|contains|all:
+            - 'PowerShell'
+            - 'String'
+    condition: seleccion
+falsepositives:
+    - Administradores que añaden entradas en el registro para herramientas legítimas
+level: high

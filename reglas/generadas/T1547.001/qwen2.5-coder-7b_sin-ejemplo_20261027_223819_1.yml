@@ -1,0 +1,23 @@
+title: Registry Run Key Modification by PowerShell Empire
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects a potential PowerShell Empire persistence mechanism by monitoring registry modifications to the Run key.
+author: Example Author
+date: 2023-04-01
+logsource:
+  product: windows
+  category: registry
+detection:
+  selection:
+    EventID: 4713
+    RegistryKey: 'HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+    RegistryValueName: '*'
+    RegistryValueType: 'String'
+    RegistryValueData: 'powershell.exe'
+  condition: selection
+falsepositives:
+  - Normal system updates and configuration changes.
+level: critical
+tags:
+  - attack.persistence
+  - attack.t1012

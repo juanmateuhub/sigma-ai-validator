@@ -1,0 +1,31 @@
+title: Regla de Cortafuegos Agregada via Netsh desde PowerShell para Python
+id: c4f2e98a-7b3d-4e12-a8f6-9a2b5c8d1e3f
+status: experimental
+description: Detecta la creación de una regla de entrada en el cortafuegos de Windows usando netsh.exe desde PowerShell que permite tráfico hacia el ejecutable python.exe.
+author: Detection Engineering
+date: 2024-03-30
+tags:
+    - attack.execution
+    - attack.t1059.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection_parent:
+        ParentImage|endswith:
+            - '\powershell.exe'
+            - '\pwsh.exe'
+    selection_process:
+        Image|endswith: '\netsh.exe'
+        CommandLine|contains|all:
+            - 'advfirewall'
+            - 'firewall'
+            - 'add'
+            - 'rule'
+            - 'dir=in'
+            - 'action=allow'
+            - 'python.exe'
+    condition: selection_parent and selection_process
+falsepositives:
+    - Scripts legítimos de administración o despliegue de entornos de desarrollo en Python.
+level: high

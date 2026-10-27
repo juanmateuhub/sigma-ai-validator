@@ -1,0 +1,25 @@
+title: Extracción de credenciales mediante volcadura de memoria con rundll32.exe
+id: 9a8d3c7e-1f2b-4a5c-9d8e-6f7b4a5c3d2e
+status: experimental
+description: Detecta cuando un atacante usa PowerShell para llamar a la función MiniDump de comsvcs.dll mediante rundll32.exe, con el fin de volcar la memoria de lsass.exe y extraer credenciales.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\rundll32.exe'
+        CommandLine|contains|all:
+            - 'comsvcs.dll'
+            - 'MiniDump'
+            - 'lsass.exe'
+    filtro_legitimo:
+        ParentImage|endswith: '\powershell.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Uso legítimo de rundll32.exe para tareas de sistema
+level: high

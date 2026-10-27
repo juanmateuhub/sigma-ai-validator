@@ -1,0 +1,25 @@
+title: Persistencia mediante PowerShell Codificado en Clave Run del Registro
+id: 8c9d1e2f-4a3b-4c5d-9e8f-7a6b5c4d3e2f
+status: experimental
+description: Detecta la creación o modificación de valores en la clave del registro Windows CurrentVersion\Run que ejecutan PowerShell con comandos codificados en Base64, técnica comúnmente usada por frameworks como Empire para lograr persistencia.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.persistence
+    - attack.t1547.001
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    selection:
+        TargetObject|contains: '\Software\Microsoft\Windows\CurrentVersion\Run'
+        Details|contains: 'powershell'
+    encoded_args:
+        Details|contains:
+            - ' -e '
+            - ' -enc '
+            - ' -encodedcommand '
+    condition: selection and encoded_args
+falsepositives:
+    - Software legítimo de terceros o scripts de administración que inicien PowerShell de forma codificada al iniciar sesión (poco común).
+level: high

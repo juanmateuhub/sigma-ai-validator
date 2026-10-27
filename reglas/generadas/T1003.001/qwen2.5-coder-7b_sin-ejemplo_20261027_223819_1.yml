@@ -1,0 +1,22 @@
+title: Suspicious MiniDump Execution via rundll32
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects the execution of rundll32.exe to call the MiniDump function from comsvcs.dll, a known technique for credential dumpers.
+author: John Doe
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image|endswith: 'rundll32.exe'
+    ParentImage|endswith: 'comsvcs.dll'
+    CommandLine|contains: 'MiniDump'
+  condition: selection
+falsepositives:
+  - Legitimate system processes using rundll32 for non-credential dumping purposes.
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001
