@@ -1,0 +1,23 @@
+title: Suspicious netsh advfirewall rule creation for Python
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects creation of a netsh advfirewall rule for Python that could indicate an attempt to establish a web server.
+author: Example Author
+date: 2023-04-01
+logsource:
+  product: windows
+  service: Sysmon
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image: "*\\python.exe"
+    ParentImage: "*\\powershell.exe"
+    CommandLine: "*netsh advfirewall firewall add rule name*"
+  condition: selection
+falsepositives:
+  - Legitimate use of netsh for firewall management
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

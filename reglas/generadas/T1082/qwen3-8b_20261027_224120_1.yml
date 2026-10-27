@@ -1,0 +1,23 @@
+title: Uso de Seatbelt.exe para enumeración de permisos de usuario
+id: 1a2b3c4d-5e6f-7890-1234-567890abcdef
+status: experimental
+description: Detecta la ejecución de Seatbelt.exe desde cmd.exe con el parámetro -group=user, utilizado para reconocer permisos de usuario en el sistema.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.discovery
+    - attack.t1056.003
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\Seatbelt.exe'
+        CommandLine|contains|all:
+            - '-group=user'
+    filtro_legitimo:
+        ParentImage|endswith: '\cmd.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan Seatbelt para verificación de permisos legítima
+level: high

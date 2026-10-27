@@ -1,0 +1,22 @@
+title: PowerShell usage of netsh to add firewall rule for a known malicious program
+id: 60b95e58-18c2-46c3-8c1b-72e1a59e282f
+status: test
+description: Detects usage of netsh to add a firewall rule for a known malicious program, likely to enable web server hosting.
+author: Example Author
+date: 2023-04-01
+logsource:
+  product: windows
+  service: Sysmon
+  category: process_creation
+detection:
+  selection1:
+    EventID: 1
+    Image: '*powershell.exe'
+    CommandLine: '*netsh advfirewall firewall add rule name="*python*" dir=in action=allow protocol=TCP localport=*'
+  condition: selection1
+falsepositives:
+  - Normal system administration
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

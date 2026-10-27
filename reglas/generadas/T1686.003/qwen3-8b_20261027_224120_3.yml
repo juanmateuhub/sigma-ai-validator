@@ -1,0 +1,27 @@
+title: Ataque mediante regla de firewall con netsh en PowerShell
+id: 1a2b3c4d-5e6f-7890-1234-567890abcdef
+status: experimental
+description: Detecta cuando un atacante usa PowerShell para crear una regla de firewall con netsh que permite conexiones a python.exe, facilitando la ejecución de un servidor web.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains|all:
+            - 'netsh'
+            - 'advfirewall'
+            - 'add'
+            - 'rule'
+            - 'program=python.exe'
+    filtro_legitimo:
+        ParentImage|endswith: '\services.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Configuración legítima de reglas de firewall por administradores
+level: high

@@ -1,0 +1,23 @@
+title: Ejecución de Seatbelt.exe con parámetro -group=user
+id: 3a4b5c6d-7e8f-9012-3456-7890abcdef12
+status: experimental
+description: Detecta la ejecución de Seatbelt.exe desde cmd.exe con el parámetro -group=user para reconocimiento de grupos de usuarios.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.privilege-escalation
+    - attack.t1059.004
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\Seatbelt.exe'
+        CommandLine|contains|all:
+            - '-group=user'
+    filter_legitimo:
+        ParentImage|endswith: '\cmd.exe'
+    condition: selection and not filter_legitimo
+falsepositives:
+    - Uso legítimo por administradores para verificar pertenencia a grupos
+level: high

@@ -1,0 +1,26 @@
+title: Creación de tarea programada remota mediante PowerShell
+id: 3a8d6e1f-7c2b-4d9a-8e5c-1f2a3b4c5d6e
+status: experimental
+description: Detecta el uso de PowerShell para crear una tarea programada remota mediante schtasks con cmd.exe, técnica usada para establecer control remoto.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.persistence
+    - attack.t1053
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains|all:
+            - 'schtasks'
+            - '/create'
+            - '/s'
+            - 'cmd.exe'
+    filtro_legitimo:
+        ParentImage|endswith: '\explorer.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que configuran tareas programadas remotas legítimamente
+level: high

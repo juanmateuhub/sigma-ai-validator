@@ -1,0 +1,20 @@
+title: Suspicious netsh advfirewall rule creation for a Python program
+id: 12345678-1234-1234-1234-1234567890ab
+status: test
+description: Detects the creation of a netsh advfirewall rule from PowerShell to allow connections to a Python program, which may indicate an attempt to establish a web server.
+author: Example Author
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID: 4688
+    CommandLine|contains: "netsh advfirewall firewall add rule"
+    CommandLine|contains: "action=allow"
+    CommandLine|contains: "program=python.exe"
+  condition: selection
+falsepositives:
+  - System administration tasks involving netsh
+level: high
+tags: [attack.credential-access, attack.t1003.001]

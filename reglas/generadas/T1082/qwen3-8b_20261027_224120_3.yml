@@ -1,0 +1,26 @@
+title: Uso de Seatbelt.exe para recolección de información del sistema
+id: 3a1b8c2d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+status: experimental
+description: Detecta la ejecución de Seatbelt.exe desde cmd.exe con el parámetro -group=user para recolección de información del sistema, técnica usada para reconocimiento del entorno.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.discovery
+    - attack.t1012
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\Seatbelt.exe'
+        CommandLine|contains|all:
+            - '-group=user'
+            - 'cmd.exe'
+        ParentImage|endswith: '\cmd.exe'
+    filtro_legitimo:
+        Image|endswith: '\Seatbelt.exe'
+        CommandLine|contains: 'audit'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Usuarios legítimos que usan Seatbelt para auditorías de sistema
+level: high

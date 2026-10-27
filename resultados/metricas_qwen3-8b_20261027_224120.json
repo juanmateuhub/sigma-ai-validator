@@ -1,0 +1,425 @@
+[
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 147.8,
+    "tokens": 3165,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen3-8b_20261027_224120_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 95.3,
+    "tokens": 2634,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen3-8b_20261027_224120_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 3,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 49.1,
+    "tokens": 1181,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen3-8b_20261027_224120_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 442.5,
+    "tokens": 7881,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 45.8,
+    "tokens": 1129,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1218.005\\qwen3-8b_20261027_224120_2.yml",
+    "tecnicas_regla": [
+      "T1059.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 3,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 125.3,
+    "tokens": 2997,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1218.005\\qwen3-8b_20261027_224120_3.yml",
+    "tecnicas_regla": [
+      "T1021.002"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 67.2,
+    "tokens": 1418,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\qwen3-8b_20261027_224120_1.yml",
+    "tecnicas_regla": [
+      "T1053"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 178.2,
+    "tokens": 4895,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 3,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 100.8,
+    "tokens": 2648,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\qwen3-8b_20261027_224120_3.yml",
+    "tecnicas_regla": [
+      "T1053.002"
+    ],
+    "detectados": 1,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 121.4,
+    "tokens": 2076,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1547.001\\qwen3-8b_20261027_224120_1.yml",
+    "tecnicas_regla": [
+      "T1112"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 1,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 1,
+      "T1053.005": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 93.7,
+    "tokens": 1748,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1547.001\\qwen3-8b_20261027_224120_2.yml",
+    "tecnicas_regla": [
+      "T1134.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 3,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 242.5,
+    "tokens": 5701,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 97.3,
+    "tokens": 1804,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen3-8b_20261027_224120_1.yml",
+    "tecnicas_regla": [
+      "T1021"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 103.2,
+    "tokens": 1861,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen3-8b_20261027_224120_2.yml",
+    "tecnicas_regla": [
+      "T1048"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 3,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 117.0,
+    "tokens": 2019,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen3-8b_20261027_224120_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 94.9,
+    "tokens": 1769,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1082\\qwen3-8b_20261027_224120_1.yml",
+    "tecnicas_regla": [
+      "T1056.003"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0
+    }
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 169.3,
+    "tokens": 2627,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1082\\qwen3-8b_20261027_224120_2.yml",
+    "tecnicas_regla": [
+      "T1059.004"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0
+    }
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen3:8b",
+    "con_ejemplo": true,
+    "numero": 3,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 46.7,
+    "tokens": 1143,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1082\\qwen3-8b_20261027_224120_3.yml",
+    "tecnicas_regla": [
+      "T1012"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0
+    }
+  }
+]

@@ -1,0 +1,23 @@
+title: Suspicious MiniDump Creation by rundll32.exe
+id: 12345678-1234-1234-1234-1234567890ab
+status: test
+description: Detects the creation of a MiniDump file by rundll32.exe targeting lsass.exe, which is indicative of credential dumping.
+author: John Doe
+date: 2023-04-01
+logsource:
+  product: windows
+  service: sysmon
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image: "*\\rundll32.exe"
+    CommandLine: "*\\comsvcs.dll"
+    ParentImage: "*\\lsass.exe"
+  condition: selection
+falsepositives:
+  - Administrators creating dumps for troubleshooting purposes
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001

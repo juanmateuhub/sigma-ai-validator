@@ -4,6 +4,7 @@ from sigma.collection import SigmaCollection
 from sigma.data import mitre_attack
 from sigma.validation import SigmaValidator
 from sigma.validators.core import validators
+from sigma.pipelines.sysmon.sysmon import sysmon_generic_logsource_eventid_mapping
 from sigma.rule import SigmaDetection
 from campos_sysmon import CAMPOS_EVENTO, CAMPOS_POR_CATEGORIA
 from detector import crear_backend
@@ -96,6 +97,13 @@ def validar(texto):
             resultado.update(motivo="el logsource no indica la categoría (category).",
                              detalles=["Usa product: windows y una category de Sysmon, "
                                        f"por ejemplo: {', '.join(CAMPOS_POR_CATEGORIA)}"])
+            return resultado
+        # Una categoría que el pipeline no conoce (p. ej. "registry") no recibe filtro de EventID
+        # ni de canal: la regla se aplicaría a cualquier evento
+        if categoria not in sysmon_generic_logsource_eventid_mapping:
+            resultado.update(motivo=f"la categoría {categoria} no existe en Sysmon.",
+                             detalles=["Categorías de Sysmon: "
+                                       + ", ".join(sorted(sysmon_generic_logsource_eventid_mapping))])
             return resultado
         if categoria not in CAMPOS_POR_CATEGORIA:
             avisos_campos.append(f"[CAMPOS] No se comprueban los campos de la categoría {categoria!r}.")

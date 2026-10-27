@@ -1,0 +1,21 @@
+id: 9e4b3c6a-7d8e-4f9a-bcde-1234567890ab
+status: test
+title: Command and Control via mshta.exe with VBScript
+description: Detection of a potential command and control activity using mshta.exe to execute VBScript directly in the command line.
+author: John Doe
+date: 2023-04-01
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage: "C:\\Windows\\System32\\cmd.exe"
+    Image: "C:\\Windows\\System32\\mshta.exe"
+    CommandLine: "*vbscript:Execute*"
+  condition: selection
+falsepositives:
+  - Administrative tasks using legitimate VBScript code.
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

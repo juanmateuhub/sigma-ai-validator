@@ -1,0 +1,24 @@
+title: Creación de tarea programada remota mediante cmd.exe  
+id: 123e4567-e89b-12d3-a456-426614174000  
+status: experimental  
+description: Detecta la creación de una tarea programada remota mediante cmd.exe, técnica usada para establecer persistencia en sistemas Windows.  
+author: Detection Engineering  
+date: 2026-10-27  
+tags:  
+    - attack.persistence  
+    - attack.t1053.002  
+logsource:  
+    product: windows  
+    category: process_creation  
+detection:  
+    selection:  
+        Image|endswith: '\cmd.exe'  
+        CommandLine|contains|all:  
+            - '/C'  
+            - 'schtasks'  
+            - '/create'  
+            - '/s'  
+    condition: selection  
+falsepositives:  
+    - Tareas programadas legítimas creadas por administradores  
+level: high

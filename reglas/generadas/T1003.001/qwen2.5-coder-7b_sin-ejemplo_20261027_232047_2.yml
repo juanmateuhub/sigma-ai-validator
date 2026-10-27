@@ -1,0 +1,22 @@
+title: Suspicious MiniDump Execution
+id: 5b678901-2345-6789-abcd-ef1234567890
+status: test
+description: Detects suspicious MiniDump execution from rundll32.exe targeting lsass.exe.
+author: John Doe
+date: 2023-04-01
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 1
+    ParentImage: "C:\\Windows\\System32\\rundll32.exe"
+    Image: "*comsvcs.dll"
+    CommandLine: "*MiniDump*lsass.exe*"
+  condition: selection
+falsepositives: 
+  - Administrative tasks that use rundll32.exe for legitimate purposes.
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

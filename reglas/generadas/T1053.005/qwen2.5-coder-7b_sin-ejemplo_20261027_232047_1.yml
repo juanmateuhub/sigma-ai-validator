@@ -1,0 +1,22 @@
+title: Suspicious Task Creation with Schtasks
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects a suspicious task creation using Schtasks /create with the /s option in PowerShell.
+author: Your Name
+date: 2023-04-01
+logsource:
+  product: windows
+  service: Sysmon
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    ParentImage: "*powershell.exe"
+    CommandLine: "*schtasks /create* /s"
+  condition: selection
+falsepositives:
+  - Normal users running scheduled tasks.
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

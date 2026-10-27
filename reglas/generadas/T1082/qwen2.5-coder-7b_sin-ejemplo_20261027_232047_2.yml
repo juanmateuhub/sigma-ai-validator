@@ -1,0 +1,20 @@
+title: Seatbelt Execution
+id: 5d9b8e9b-a1b2-c3d4-e5f6-7890abcdef12
+status: test
+description: Detects execution of Seatbelt.exe from cmd.exe with the -group=user argument.
+author: Your Name
+date: 2023-04-01
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: "C:\\Windows\\System32\\cmd.exe"
+    CommandLine: "*Seatbelt.exe -group=user*"
+  condition: selection
+falsepositives:
+  - Normal administrative tasks
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

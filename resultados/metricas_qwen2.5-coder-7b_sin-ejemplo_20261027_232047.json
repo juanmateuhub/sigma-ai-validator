@@ -1,0 +1,602 @@
+[
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 1,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 29.2,
+    "tokens": 2374,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 6.5,
+    "tokens": 491,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 3,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 7.4,
+    "tokens": 519,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 4,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 6.8,
+    "tokens": 498,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_4.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 5,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 21.7,
+    "tokens": 2523,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_5.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 7.2,
+    "tokens": 501,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1218.005\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 6.5,
+    "tokens": 484,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1218.005\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 3,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 20.9,
+    "tokens": 2296,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 4,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 18.7,
+    "tokens": 2160,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1218.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 19.7,
+    "tokens": 2314,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 1,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 12.5,
+    "tokens": 1188,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 2,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 12.1,
+    "tokens": 1170,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 3,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 6.0,
+    "tokens": 462,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 4,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 11.8,
+    "tokens": 1238,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1053.005\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_4.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1053.005",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 19.2,
+    "tokens": 2478,
+    "motivo": "la regla no indica ninguna técnica ATT&CK."
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 1,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 22.3,
+    "tokens": 2500,
+    "motivo": "la regla usa campos que no existen en la categoría registry_event de Sysmon."
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 2,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 20.3,
+    "tokens": 2374,
+    "motivo": "el mapeo a ATT&CK no es válido."
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 3,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 13.1,
+    "tokens": 1276,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1547.001\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1686.003": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 4,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 24.2,
+    "tokens": 2478,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1547.001",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 19.5,
+    "tokens": 2211,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 1,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 14.1,
+    "tokens": 1292,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 2,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 14.9,
+    "tokens": 1288,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 3,
+    "valida": true,
+    "intentos": 2,
+    "segundos": 14.6,
+    "tokens": 1281,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_3.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 4,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 21.5,
+    "tokens": 2287,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1686.003\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_4.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 2,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1082": 0
+    }
+  },
+  {
+    "tecnica": "T1686.003",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 21.6,
+    "tokens": 2332,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 1,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 6.2,
+    "tokens": 466,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1082\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_1.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 1,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0
+    }
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 2,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 5.5,
+    "tokens": 447,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1082\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0
+    }
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 3,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 19.6,
+    "tokens": 2148,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 4,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 19.3,
+    "tokens": 2153,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1082",
+    "modelo": "qwen2.5-coder:7b",
+    "con_ejemplo": false,
+    "numero": 5,
+    "valida": true,
+    "intentos": 1,
+    "segundos": 5.8,
+    "tokens": 455,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1082\\qwen2.5-coder-7b_sin-ejemplo_20261027_232047_5.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "T1003.001": 0,
+      "T1218.005": 0,
+      "T1053.005": 0,
+      "T1547.001": 0,
+      "T1686.003": 0
+    }
+  }
+]

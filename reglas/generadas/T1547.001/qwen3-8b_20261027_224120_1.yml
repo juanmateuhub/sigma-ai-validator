@@ -1,0 +1,21 @@
+title: Persistencia de Empire mediante clave del registro Run
+id: 1a2b3c4d-5e6f-7890-1234-567890abcdef
+status: experimental
+description: Detecta la persistencia del agente Empire al escribir en la clave HKCU\Software\Microsoft\Windows\CurrentVersion\Run para lanzar powershell.exe con un comando codificado en cada inicio de sesión.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.persistence
+    - attack.t1112
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    selection:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains: 'HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Run'
+        CommandLine|contains: 'powershell.exe'
+    condition: selection
+falsepositives:
+    - Configuración legítima de claves Run mediante PowerShell
+level: high

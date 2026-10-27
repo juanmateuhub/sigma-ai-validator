@@ -1,20 +1,20 @@
 title: Suspicious Scheduled Task Creation via PowerShell
 id: 123e4567-e89b-12d3-a456-426614174000
 status: test
-description: Detects suspicious scheduled task creation via PowerShell that utilizes cmd.exe to execute a command on a remote system.
-author: John Doe
+description: Detects PowerShell commands that create scheduled tasks on a remote machine using schtasks /s.
+author: Your Name
 date: 2023-04-01
 logsource:
   product: windows
   category: process_creation
 detection:
   selection:
-    Image: "*powershell.exe"
-    CommandLine: "*cmd.exe /C schtasks /create /s *"
+    Image: 'C:\\Windows\\System32\\cmd.exe'
+    CommandLine: '* /C schtasks /create /s *'
   condition: selection
 falsepositives:
-  - Normal use of PowerShell for administrative tasks
-level: high
+  - System administrators creating legitimate scheduled tasks.
+level: medium
 tags:
   - attack.credential-access
   - attack.t1003.001

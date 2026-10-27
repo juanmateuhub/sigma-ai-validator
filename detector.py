@@ -58,7 +58,14 @@ def detectar(texto_regla, con):
     """Traduce la regla a SQL, la ejecuta sobre la tabla y devuelve las alertas."""
     reglas = SigmaCollection.from_yaml(texto_regla)
     consulta = crear_backend().convert(reglas)[0]
-    return con.execute(consulta).fetchall()
+    try:
+        return con.execute(consulta).fetchall()
+    except sqlite3.OperationalError as error:
+        # Si ningún evento del dataset tiene ese campo, la tabla no tiene la columna:
+        # como en un SIEM, la regla simplemente no coincide con nada
+        if "no such column" in str(error):
+            return []
+        raise
 
 
 if __name__ == "__main__":

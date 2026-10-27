@@ -1,0 +1,30 @@
+title: Configuración de regla de firewall con netsh desde PowerShell
+id: 3a4b5c6d-7e8f-90ab-cd12-34ef567890ab
+status: experimental
+description: Detecta cuando PowerShell se usa para crear una regla de firewall con netsh que permite conexiones entrantes a un programa, técnica empleada para facilitar la comunicación con un servidor web.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.command-and-control
+    - attack.t1048
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\powershell.exe'
+        CommandLine|contains|all:
+            - 'netsh'
+            - 'advfirewall'
+            - 'firewall'
+            - 'add'
+            - 'rule'
+            - 'dir=in'
+            - 'action=allow'
+            - 'protocol=TCP'
+    filtro_legitimo:
+        ParentImage|endswith: '\explorer.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que configuran reglas de firewall para aplicaciones legítimas
+level: high

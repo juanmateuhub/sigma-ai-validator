@@ -1,0 +1,21 @@
+title: Remote Task Scheduler Creation via PowerShell
+id: 0a1b2c3d-4e5f-6a7b-8c9d-0e1f2a3b4c5d
+status: test
+description: Detects a PowerShell command that creates a scheduled task on a remote machine using schtasks.
+author: Jane Doe
+date: 2023-04-01
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    EventID: 4688
+    Image: '*powershell.exe'
+    CommandLine: '*schtasks /create /s *'
+  condition: selection
+falsepositives: 
+  - Administrators performing legitimate remote management
+level: medium
+tags:
+  - attack.credential-access
+  - attack.t1003.001

@@ -148,9 +148,16 @@ if __name__ == "__main__":
                 ruta.write_text(regla, encoding="utf-8")
                 fila["regla"] = str(ruta)
                 fila["tecnicas_regla"] = intentos[-1]["resultado"]["tecnicas"]
-                fila.update(evaluar(regla, con_ataque, eventos_ataque, negativos))
-                print(f"  Detecta {fila['detectados']}/{fila['ataques']} | "
-                      f"falsos positivos: {fila['falsos_positivos']}")
+                try:
+                    fila.update(evaluar(regla, con_ataque, eventos_ataque, negativos))
+                except Exception as error:
+                    # Una regla válida que no se puede ejecutar cuenta como que no detecta
+                    print("  Error al ejecutar la regla:", str(error)[:100])
+                    fila.update(error_evaluacion=str(error)[:300], detectados=0,
+                                ataques=len(eventos_ataque), falsos_positivos=0)
+                else:
+                    print(f"  Detecta {fila['detectados']}/{fila['ataques']} | "
+                          f"falsos positivos: {fila['falsos_positivos']}")
             resultados.append(fila)
 
     CARPETA_RESULTADOS.mkdir(exist_ok=True)

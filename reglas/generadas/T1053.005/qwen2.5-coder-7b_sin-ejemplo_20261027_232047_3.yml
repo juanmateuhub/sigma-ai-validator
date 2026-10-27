@@ -1,0 +1,20 @@
+title: Suspicious PowerShell Command Execution for Remote Task Creation
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects a suspicious PowerShell command execution that appears to be creating a scheduled task on a remote machine using schtasks.exe.
+author: Your Name
+date: 2023-04-10
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage: "*powershell.exe"
+    CommandLine: "*schtasks /create /s *"
+  condition: selection
+falsepositives:
+  - Legitimate use of PowerShell for administrative tasks
+level: high
+tags:
+  - attack.t1003.001
+  - tactic.execution
