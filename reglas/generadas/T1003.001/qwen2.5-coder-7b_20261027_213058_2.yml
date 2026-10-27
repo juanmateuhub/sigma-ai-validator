@@ -1,0 +1,22 @@
+title: Suspicious MiniDump execution via rundll32 in PowerShell
+id: 3f4b5c6d-7e8f-9a0b-1c2d-3e4f5a6b7c8d
+status: test
+description: Detects an attempt to extract credentials from the lsass process by executing MiniDump via rundll32 in PowerShell.
+author: Jane Doe
+date: 2023-04-01
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    EventID: 1
+    Image: "*powershell.exe"
+    CommandLine: "*rundll32.exe comsvcs.dll,MiniDump*"
+    TargetFileName: "lsass.exe"
+  condition: selection
+falsepositives:
+  - Normal use of rundll32.exe for legitimate purposes.
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001

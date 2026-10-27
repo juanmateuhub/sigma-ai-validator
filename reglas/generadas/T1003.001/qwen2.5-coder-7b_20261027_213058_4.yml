@@ -1,0 +1,21 @@
+title: Memory Dump of Lsass.exe via Rundll32
+id: 25d1f75b-4e2d-4b1c-8e1a-3b2d4f3c5e6d
+status: test
+description: Detects a memory dump of lsass.exe using rundll32.exe and MiniDump function from comsvcs.dll, a common technique for credential extraction.
+author: John Doe
+date: 2023-04-15
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image: 'C:\\Windows\\System32\\rundll32.exe'
+    TargetFilename: 'comsvcs.dll!MiniDump'
+    CommandLine: '*memory.dll*lsass.exe*'
+  condition: selection
+falsepositives:
+  - Legitimate forensic operations
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001

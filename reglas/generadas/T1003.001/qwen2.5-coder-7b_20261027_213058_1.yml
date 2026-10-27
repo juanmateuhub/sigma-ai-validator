@@ -1,0 +1,22 @@
+title: Suspicious MiniDump of lsass.exe via rundll32.exe
+id: 12345678-1234-1234-1234-1234567890ab
+status: test
+description: Detects a suspicious MiniDump call of lsass.exe via rundll32.exe, which is indicative of credential theft.
+author: John Doe
+date: 2023-04-01
+logsource:
+  product: windows
+  service: Sysmon
+detection:
+  selection:
+    EventID: 1
+    Image: "*powershell.exe"
+    TargetFilename: "comsvcs.dll"
+    CommandLine: "*MiniDump*"
+  condition: selection
+falsepositives:
+  - Legitimate administrative tasks that involve dumping memory.
+level: high
+tags:
+  - attack.credential-access
+  - attack.t1003.001
