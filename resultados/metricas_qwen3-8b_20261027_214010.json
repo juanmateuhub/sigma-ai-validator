@@ -1,0 +1,52 @@
+[
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 1,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 150.1,
+    "tokens": 3596,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 2,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 213.8,
+    "tokens": 4498,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 3,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 179.9,
+    "tokens": 4029,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 4,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 254.4,
+    "tokens": 4939,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 240.1,
+    "tokens": 4748,
+    "motivo": "la regla no se puede leer o traducir."
+  }
+]

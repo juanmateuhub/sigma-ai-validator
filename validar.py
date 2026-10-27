@@ -1,10 +1,17 @@
 import sys
+import yaml
 from sigma.collection import SigmaCollection
 from sigma.validation import SigmaValidator
 from sigma.validators.core import validators
 from sigma.rule import SigmaDetection
 from campos_sysmon import CAMPOS_EVENTO, CAMPOS_POR_CATEGORIA
 from detector import crear_backend
+
+# Explicación para los errores de 'condition', que pySigma da en términos poco claros
+PISTA_CONDICION = ("En Sigma, 'condition' solo combina los NOMBRES de las selecciones definidas "
+                   "dentro de detection (por ejemplo: 'selection', 'selection and not filter', "
+                   "'1 of selection_*'). Los campos y valores van dentro de cada selección, "
+                   "por ejemplo: selection: {Image|endswith: '\\rundll32.exe', CommandLine|contains: 'MiniDump'}.")
 
 
 def campos_usados(regla):
@@ -31,9 +38,16 @@ def validar(texto):
 
     # Nivel 1: ¿se puede leer y traducir la regla?
     try:
+        if isinstance(yaml.safe_load(texto), list):
+            # pySigma solo dice "'list' object has no attribute 'get'", que no orienta al modelo
+            raise ValueError("La regla es una lista YAML (empieza por '- title:'). "
+                             "Debe ser un mapa: quita el '- ' y la sangría de la primera línea.")
         crear_backend().convert(SigmaCollection.from_yaml(texto))
     except Exception as error:
-        resultado.update(motivo="la regla no se puede leer o traducir.", detalles=[str(error)])
+        detalles = [str(error)]
+        if "not defined in detections" in str(error) or "Unbalanced parentheses" in str(error):
+            detalles.append(PISTA_CONDICION)
+        resultado.update(motivo="la regla no se puede leer o traducir.", detalles=detalles)
         return resultado
 
     # A partir de aquí trabajamos sobre una copia limpia
