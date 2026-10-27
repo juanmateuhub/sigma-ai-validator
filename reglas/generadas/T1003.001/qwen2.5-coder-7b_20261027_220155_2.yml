@@ -1,0 +1,21 @@
+title: Suspicious MiniDump Usage by rundll32.exe targeting lsass.exe
+id: 123e4567-e89b-12d3-a456-426614174000
+status: test
+description: Detects suspicious MiniDump usage by rundll32.exe targeting lsass.exe, which is indicative of credential dumping.
+author: Your Name
+date: 2023-04-14
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image: 'C:\Windows\System32\rundll32.exe'
+    CommandLine: '*comsvcs.dll*'
+    ParentImage: 'C:\Windows\System32\lsass.exe'
+  condition: selection
+falsepositives:
+  - Administrators performing legitimate memory analysis.
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001

@@ -1,0 +1,21 @@
+title: Suspicious MiniDump Creation in PowerShell
+id: 3e4f5d6a-b7c9-4e2f-a1b2-c3d4e5f67890
+status: test
+description: Detects a suspicious MiniDump creation in PowerShell that may be part of a credential dumping attempt.
+author: John Doe
+date: 2023-04-01
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: 'C:\\Windows\\System32\\rundll32.exe'
+    CommandLine: '*comsvcs.dll,MiniDump*'
+    ParentImage: 'C:\\Windows\\System32\\lsass.exe'
+  condition: selection
+falsepositives:
+  - Normal use of rundll32.exe for legitimate purposes.
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001

@@ -123,8 +123,20 @@ Detalles: la traducción **modifica el objeto regla** (el pipeline lo anota), as
   - `config.py`: `PROVEEDOR` ("gemini" u "ollama") y `MODELOS` por proveedor. `ia.py` solo elige el módulo; el código de Gemini está en `ia_gemini.py`; `ia_ollama.py` tiene la misma `preguntar()` (rol "model" pasa a "assistant", `num_ctx` 8192, sin reintentos). `metricas.py` cambia ":" por "-" en los nombres de archivo.
   - Medición con `qwen2.5-coder:7b` sin tocar el prompt (decisión de Juan: medir tal cual): **T1003.001 → 4/5 válidas, 0/5 detectan, 0 FP**, unos 7-12 s por respuesta. Resultados en `resultados/` (se versiona).
   - Fallos del modelo: usa `TargetFilename`/`TargetImage`, que **no existen en process_creation**, así que la regla nunca coincide; `id` que no es UUID; YAML inválido (`'a' or 'b'`); en el bucle de corrección repite la misma respuesta.
-- **Hueco del validador**: no comprueba que los campos existan en la categoría del `logsource`. Una regla con un campo inexistente pasa como válida y luego no detecta nada.
-- Siguiente: decidir entre (a) añadir al validador la comprobación de campos por categoría, para que el bucle de corrección los arregle, y (b) probar otro modelo (`qwen3:8b`, razona). Después, más casos en `CASOS` y `requirements.txt`.
+- Cambios en el validador (nivel 2, ERROR): los campos deben existir en el evento de Sysmon de la categoría (`campos_sysmon.py`, más `EventID` y `Channel`), y el `logsource` debe indicar `category`, porque sin ella el pipeline no filtra por EventID. En el nivel 1, mensajes claros para dos errores de pySigma que el modelo no entendía: regla en lista YAML (`- title:`) y `condition` escrita con campos en lugar de nombres de selección (`PISTA_CONDICION`).
+- `config.py`: el modelo se puede cambiar con `$env:MODELO = "qwen3:8b"`. `ia_ollama.py` activa `think` si el modelo lo admite (`qwen3`). Ollama no separa los tokens de razonamiento.
+- Mediciones T1003.001 (5 reglas, `resultados/`):
+
+  | Modelo | Validador | Válidas | Detectan | Segundos por regla |
+  |---|---|---|---|---|
+  | qwen2.5-coder:7b | inicial | 4/5 | 0/5 | 12.6 |
+  | qwen2.5-coder:7b | + campos | 4/5 | 1/5 | 22.8 |
+  | qwen2.5-coder:7b | + pistas | 5/5 | 0/5 | 13.8 |
+  | qwen3:8b | + campos | 0/5 | 0/5 | 207.7 |
+  | qwen3:8b | + pistas | 1/5 | 0/5 | 202.9 |
+
+- Conclusión: el bucle de corrección con mensajes claros sube la **validez**, pero los modelos de 7-8B fallan en la **lógica** (padre/hijo invertidos, `lsass.exe` como `ParentImage`, `comsvcs.dll,MiniDump` con coma). Eso solo lo detecta la prueba contra datos reales. `qwen3:8b` es unas 15 veces más lento y peor en sintaxis Sigma. Con 5 reglas la variación entre ejecuciones es grande (0/5 o 1/5).
+- Siguiente decisión (para Juan): dar un ejemplo de regla Sigma en el prompt (few-shot) de otra técnica, subir `REGLAS_POR_CASO`, volver a Gemini cuando se renueve la cuota diaria para compararlo, o pasar a añadir más técnicas a `CASOS`. Pendiente también `requirements.txt`.
 
 ### Fase 6 — Escalar y presentar. PENDIENTE
 - Varias técnicas ATT&CK con sus datasets de OTRF.

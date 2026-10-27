@@ -1,0 +1,21 @@
+title: Suspicious Rundll32 Execution with MiniDump
+id: 3fa05f7b-6a7c-4e9b-a614-4c79b1d06f8c
+status: test
+description: Detects suspicious rundll32.exe execution that calls the MiniDump function from comsvcs.dll, which is indicative of a memory dump attempt on lsass.exe, possibly for credential extraction.
+author: Jane Doe
+date: 2023-04-10
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image: '*\\powershell.exe'
+    ParentImage: '*\\rundll32.exe'
+    CommandLine: '*MiniDump*comsvcs.dll*lsass.exe*'
+  condition: selection
+falsepositives: 
+  - Legitimate administrative tasks that involve memory dumps
+level: critical
+tags:
+  - attack.credential-access
+  - attack.t1003.001

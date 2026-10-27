@@ -1,0 +1,67 @@
+[
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 1,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 250.1,
+    "tokens": 5068,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 2,
+    "valida": true,
+    "intentos": 3,
+    "segundos": 139.7,
+    "tokens": 3785,
+    "motivo": null,
+    "regla": "reglas\\generadas\\T1003.001\\qwen3-8b_20261027_220312_2.yml",
+    "tecnicas_regla": [
+      "T1003.001"
+    ],
+    "detectados": 0,
+    "ataques": 1,
+    "falsos_positivos": 0,
+    "falsos_en_dataset_ataque": 0,
+    "falsos_por_negativo": {
+      "psh_python_webserver_2020-10-2900161507": 0,
+      "cmd_seatbelt_group_user_2020-11-0216391814": 0,
+      "cmd_mshta_vbscript_execute_psh_2020-10-2202580804": 0,
+      "schtask_create_2020-12-1907003032": 0,
+      "empire_persistence_registry_modification_run_keys_standard_user_2020-09-04030609": 0
+    }
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 3,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 141.9,
+    "tokens": 3833,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 4,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 188.7,
+    "tokens": 4294,
+    "motivo": "la regla no se puede leer o traducir."
+  },
+  {
+    "tecnica": "T1003.001",
+    "modelo": "qwen3:8b",
+    "numero": 5,
+    "valida": false,
+    "intentos": 3,
+    "segundos": 294.1,
+    "tokens": 5526,
+    "motivo": "la regla usa campos que no existen en la categoría process_creation de Sysmon."
+  }
+]
