@@ -32,7 +32,8 @@ Es un proyecto de portfolio para GitHub (`github.com/juanmateuhub`), orientado a
 - Paquetes instalados: `pysigma`, `pysigma-backend-sqlite`, `pysigma-pipeline-sysmon`, `google-genai`, `python-dotenv`. Conviene crear un `requirements.txt` en algún momento.
 - `.gitignore`: `.venv/`, `datos/`, `.env`.
 - Secretos: la clave de Gemini está en `.env` como `GEMINI_API_KEY=...`. **Nunca** debe escribirse en el código ni subirse a Git.
-- Hardware: tarjeta gráfica NVIDIA con 8 GB o más de VRAM (útil para modelos locales con Ollama).
+- Hardware: NVIDIA RTX 3060 Laptop con **6 GB** de VRAM. Un modelo de 7-8B en Q4 cabe casi entero (qwen2.5-coder:7b: 79 % GPU / 21 % CPU con contexto de 8192).
+- Ollama 0.40.11 instalado con winget (`%LOCALAPPDATA%\Programs\Ollama\ollama.exe`, servidor en `http://localhost:11434`). Paquete Python `ollama` en el `.venv`.
 
 ## Estructura actual
 
@@ -117,7 +118,13 @@ Detalles: la traducción **modifica el objeto regla** (el pipeline lo anota), as
   1. **Ollama local** en la GPU (recomendado): sin cuotas; módulo nuevo con la misma `preguntar()`. Requiere instalar Ollama y elegir el modelo (por ejemplo, `qwen` o `llama` de 7-8B).
   2. Gemini de pago.
   3. Repartir las ejecuciones en varios días. Gemini se quedaría solo para la comparativa.
-- Pendiente después: hacer el proveedor configurable en `config.py` (Gemini/Ollama), añadir más casos a `CASOS` y crear `requirements.txt`.
+- **Decisión de Juan (2026-10-27): Ollama local.** La prueba con `gemini-3.5-flash-lite` no dejó resultados.
+- **Hecho (2026-10-27)**:
+  - `config.py`: `PROVEEDOR` ("gemini" u "ollama") y `MODELOS` por proveedor. `ia.py` solo elige el módulo; el código de Gemini está en `ia_gemini.py`; `ia_ollama.py` tiene la misma `preguntar()` (rol "model" pasa a "assistant", `num_ctx` 8192, sin reintentos). `metricas.py` cambia ":" por "-" en los nombres de archivo.
+  - Medición con `qwen2.5-coder:7b` sin tocar el prompt (decisión de Juan: medir tal cual): **T1003.001 → 4/5 válidas, 0/5 detectan, 0 FP**, unos 7-12 s por respuesta. Resultados en `resultados/` (se versiona).
+  - Fallos del modelo: usa `TargetFilename`/`TargetImage`, que **no existen en process_creation**, así que la regla nunca coincide; `id` que no es UUID; YAML inválido (`'a' or 'b'`); en el bucle de corrección repite la misma respuesta.
+- **Hueco del validador**: no comprueba que los campos existan en la categoría del `logsource`. Una regla con un campo inexistente pasa como válida y luego no detecta nada.
+- Siguiente: decidir entre (a) añadir al validador la comprobación de campos por categoría, para que el bucle de corrección los arregle, y (b) probar otro modelo (`qwen3:8b`, razona). Después, más casos en `CASOS` y `requirements.txt`.
 
 ### Fase 6 — Escalar y presentar. PENDIENTE
 - Varias técnicas ATT&CK con sus datasets de OTRF.
