@@ -2,6 +2,7 @@ import re
 import sys
 from datetime import datetime
 from pathlib import Path
+from config import CON_EJEMPLO
 from ia import preguntar
 from validar import validar
 from detector import RUTA_DATOS, cargar_eventos, detectar
@@ -23,10 +24,45 @@ Requisitos obligatorios:
 - La telemetría disponible es Sysmon, así que usa un logsource con product: windows y la
   category de Sysmon adecuada (por ejemplo process_creation), con sus nombres de campo.
 - Incluye en tags la táctica y al menos una técnica real de MITRE ATT&CK, con el formato
-  attack.credential-access y attack.t1003.001.
+  attack.credential-access y attack.t1003.001. Usa la versión actual de ATT&CK.
 - Incluye title, id (un UUID), status, description, author, date, logsource, detection,
   falsepositives y level.
 - La detección debe ser lo bastante concreta para no saltar con actividad normal."""
+
+# Ejemplo de regla correcta (few-shot) de una técnica que no está entre los casos medidos:
+# enseña el formato, los modificadores y cómo se escribe 'condition' sin dar la respuesta
+EJEMPLO = """
+
+Ejemplo de regla correcta para otro ataque (descarga de un archivo con certutil):
+
+title: Descarga de un archivo con certutil
+id: 5f3c1b8e-2d4a-4c6b-9e7f-1a2b3c4d5e6f
+status: experimental
+description: Detecta certutil.exe descargando un archivo de una URL, técnica usada para traer herramientas al equipo.
+author: Detection Engineering
+date: 2026-10-27
+tags:
+    - attack.command-and-control
+    - attack.t1105
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\\certutil.exe'
+        CommandLine|contains|all:
+            - 'urlcache'
+            - 'http'
+    filtro_legitimo:
+        ParentImage|endswith: '\\msiexec.exe'
+    condition: seleccion and not filtro_legitimo
+falsepositives:
+    - Administradores que usan certutil para descargar certificados
+level: high"""
+
+
+def instrucciones():
+    return INSTRUCCIONES + (EJEMPLO if CON_EJEMPLO else "")
 
 
 def limpiar(texto):
@@ -43,7 +79,7 @@ def generar(descripcion):
     conversacion = [("user", descripcion)]
     intentos = []
     for numero in range(1, MAX_INTENTOS + 1):
-        respuesta, datos = preguntar(INSTRUCCIONES, conversacion)
+        respuesta, datos = preguntar(instrucciones(), conversacion)
         regla = limpiar(respuesta)
         resultado = validar(regla)
         intentos.append({**datos, "resultado": resultado})

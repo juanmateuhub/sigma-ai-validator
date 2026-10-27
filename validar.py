@@ -1,6 +1,7 @@
 import sys
 import yaml
 from sigma.collection import SigmaCollection
+from sigma.data import mitre_attack
 from sigma.validation import SigmaValidator
 from sigma.validators.core import validators
 from sigma.rule import SigmaDetection
@@ -12,6 +13,25 @@ PISTA_CONDICION = ("En Sigma, 'condition' solo combina los NOMBRES de las selecc
                    "dentro de detection (por ejemplo: 'selection', 'selection and not filter', "
                    "'1 of selection_*'). Los campos y valores van dentro de cada selección, "
                    "por ejemplo: selection: {Image|endswith: '\\rundll32.exe', CommandLine|contains: 'MiniDump'}.")
+
+
+def pistas_attack(tecnicas):
+    """Explica qué tácticas acepta la versión actual de ATT&CK y a cuál pertenece cada técnica.
+
+    ATT&CK cambia: en la v18, Defense Evasion se dividió en Stealth y Defense Impairment,
+    y los modelos siguen escribiendo attack.defense-evasion.
+    """
+    datos = mitre_attack._load_mitre_attack_data()
+    tacticas = sorted(datos["mitre_attack_tactics"].values())
+    pistas = [f"Tácticas válidas (ATT&CK {datos['mitre_attack_version']}): {', '.join(tacticas)}"]
+    for t in tecnicas:
+        codigo = t.name.upper()
+        if codigo in datos["mitre_attack_techniques"]:
+            pistas.append(f"{codigo} ({datos['mitre_attack_techniques'][codigo]}) pertenece a: "
+                          + ", ".join(datos["mitre_attack_techniques_tactics_mapping"].get(codigo, [])))
+        else:
+            pistas.append(f"{codigo} no existe en ATT&CK {datos['mitre_attack_version']}.")
+    return pistas
 
 
 def campos_usados(regla):
@@ -62,7 +82,8 @@ def validar(texto):
     problemas_attack = SigmaValidator([validators["attacktag"]]).validate_rules(reglas)
     if problemas_attack:
         resultado.update(motivo="el mapeo a ATT&CK no es válido.",
-                         detalles=[p.description for p in problemas_attack])
+                         detalles=[f"{p.description}: {p.tag}"
+                                   for p in problemas_attack] + pistas_attack(tecnicas))
         return resultado
 
     # Nivel 2 (cont.): los campos deben existir en el evento de Sysmon de esa categoría;

@@ -1,0 +1,20 @@
+title: PowerShell escribe en una clave Run del registro
+id: 332f480b-c580-4708-bc94-5da9c097383f
+status: experimental
+description: Detecta a PowerShell creando o modificando un valor en una clave Run, que Windows ejecuta en cada inicio de sesión. Es una forma habitual de persistencia.
+author: Juan Mateu Museros
+date: 2026-10-27
+tags:
+    - attack.persistence
+    - attack.t1547.001
+logsource:
+    product: windows
+    category: registry_set
+detection:
+    seleccion:
+        Image|endswith: '\powershell.exe'
+        TargetObject|contains: '\Software\Microsoft\Windows\CurrentVersion\Run\'
+    condition: seleccion
+falsepositives:
+    - Scripts de administración que configuran programas de inicio
+level: high

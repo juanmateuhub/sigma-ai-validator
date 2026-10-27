@@ -1,0 +1,20 @@
+title: Ejecución de VBScript en línea con mshta
+id: 9e158ba2-8411-45fa-b80f-9304a62dfdeb
+status: experimental
+description: Detecta mshta.exe ejecutando código VBScript escrito directamente en la línea de comandos, técnica usada para lanzar comandos a través de un binario firmado de Windows.
+author: Juan Mateu Museros
+date: 2026-10-27
+tags:
+    - attack.stealth
+    - attack.t1218.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\mshta.exe'
+        CommandLine|contains: 'vbscript:'
+    condition: seleccion
+falsepositives:
+    - Poco probables; algún instalador antiguo que use mshta con VBScript
+level: high

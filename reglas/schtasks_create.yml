@@ -1,0 +1,22 @@
+title: Creación de una tarea programada con schtasks
+id: 857da9b9-c8db-41a9-8c24-396ff745352e
+status: experimental
+description: Detecta la creación de una tarea programada con schtasks /create, tanto el proceso schtasks.exe como el cmd.exe que lo lanza, técnica usada para ejecutar código de forma persistente o en otro equipo.
+author: Juan Mateu Museros
+date: 2026-10-27
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.t1053.005
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        CommandLine|contains|all:
+            - 'schtasks'
+            - '/create'
+    condition: seleccion
+falsepositives:
+    - Instaladores y scripts de administración que crean tareas programadas
+level: medium

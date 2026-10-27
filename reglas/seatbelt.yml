@@ -1,0 +1,21 @@
+title: Ejecución de la herramienta de reconocimiento Seatbelt
+id: a208407f-30f5-43db-97ec-75c8a722c7bf
+status: experimental
+description: Detecta la ejecución de Seatbelt, herramienta de GhostPack que recopila información del sistema y del usuario para preparar los siguientes pasos de un ataque.
+author: Juan Mateu Museros
+date: 2026-10-27
+tags:
+    - attack.discovery
+    - attack.t1082
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion_nombre:
+        Image|endswith: '\Seatbelt.exe'
+    seleccion_grupo:
+        CommandLine|contains: '-group='
+    condition: 1 of seleccion_*
+falsepositives:
+    - Auditorías de seguridad autorizadas
+level: high

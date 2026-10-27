@@ -1,0 +1,24 @@
+title: Regla de entrada añadida al cortafuegos con netsh
+id: d4e63fd8-bf7a-45df-8686-3cc2f5681305
+status: experimental
+description: Detecta netsh añadiendo una regla al cortafuegos de Windows para permitir conexiones entrantes, algo que un atacante hace para abrir un puerto a su propio servicio.
+author: Juan Mateu Museros
+date: 2026-10-27
+tags:
+    - attack.defense-impairment
+    - attack.t1686.003
+logsource:
+    product: windows
+    category: process_creation
+detection:
+    seleccion:
+        Image|endswith: '\netsh.exe'
+        CommandLine|contains|all:
+            - 'firewall'
+            - 'add'
+            - 'dir=in'
+            - 'action=allow'
+    condition: seleccion
+falsepositives:
+    - Instaladores legítimos que abren un puerto en el cortafuegos
+level: medium
