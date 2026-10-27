@@ -2,7 +2,8 @@ import time
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from config import MODELO
+from config import MODELOS
+MODELO = MODELOS["gemini"]  # este script es la prueba de Gemini
 
 load_dotenv()
 cliente = genai.Client(http_options=types.HttpOptions(timeout=120_000))

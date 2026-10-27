@@ -5,6 +5,9 @@ from detector import cargar_eventos, detectar
 from generar import generar
 from config import MODELO
 
+# Windows no admite ":" en nombres de archivo (qwen2.5-coder:7b)
+MODELO_ARCHIVO = MODELO.replace(":", "-")
+
 REGLAS_POR_CASO = 5
 CARPETA_DATOS = Path("datos")
 CARPETA_REGLAS = Path("reglas/generadas")
@@ -94,7 +97,7 @@ if __name__ == "__main__":
                 motivo=intentos[-1]["resultado"]["motivo"],
             )
             if regla is not None:
-                ruta = carpeta / f"{MODELO}_{fecha:%Y%m%d_%H%M%S}_{numero}.yml"
+                ruta = carpeta / f"{MODELO_ARCHIVO}_{fecha:%Y%m%d_%H%M%S}_{numero}.yml"
                 ruta.write_text(regla, encoding="utf-8")
                 fila["regla"] = str(ruta)
                 fila["tecnicas_regla"] = intentos[-1]["resultado"]["tecnicas"]
@@ -104,7 +107,7 @@ if __name__ == "__main__":
             resultados.append(fila)
 
     CARPETA_RESULTADOS.mkdir(exist_ok=True)
-    salida = CARPETA_RESULTADOS / f"metricas_{MODELO}_{fecha:%Y%m%d_%H%M%S}.json"
+    salida = CARPETA_RESULTADOS / f"metricas_{MODELO_ARCHIVO}_{fecha:%Y%m%d_%H%M%S}.json"
     salida.write_text(json.dumps(resultados, indent=2, ensure_ascii=False), encoding="utf-8")
 
     # Resumen por técnica
