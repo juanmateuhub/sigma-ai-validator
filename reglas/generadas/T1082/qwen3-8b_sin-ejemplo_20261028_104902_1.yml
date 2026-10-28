@@ -1,0 +1,21 @@
+title: Detection of Seatbelt.exe used for user group enumeration  
+id: "123e4567-e89b-12d3-a456-426614174000"  
+status: experimental  
+description: "Detects the execution of Seatbelt.exe from cmd.exe with the -group=user parameter, indicating user group enumeration."  
+author: "Security Team"  
+date: 2023-10-05  
+logsource:  
+  product: windows  
+  category: process_creation  
+detection:  
+  selection:  
+    - ParentImage: "cmd.exe"  
+    - Image: "Seatbelt.exe"  
+    - CommandLine: "Seatbelt.exe -group=user"  
+  condition: selection  
+tags:  
+  - attack.credential-access  
+  - attack.t1003.001  
+falsepositives:  
+  - Legitimate system maintenance scripts  
+level: high

@@ -1,0 +1,22 @@
+title: Seatbelt.exe User Group Discovery via Cmd.exe  
+id: "6e8d12d9-6b5c-4a3b-8c7e-2f1e8d3c4a3b"  
+status: experimental  
+description: Detection of Seatbelt.exe executed from cmd.exe with -group=user parameter to discover user account information.  
+author: "Threat Intelligence Team"  
+date: 2023-10-15  
+logsource:  
+  product: windows  
+  category: process_creation  
+detection:  
+  selection:  
+    - EventID: 1  
+    - Image: Seatbelt.exe  
+    - ParentImage: cmd.exe  
+    - CommandLine|contains: "-group=user"  
+  condition: selection  
+tags:  
+  - attack.credential-access  
+  - attack.t1003.001  
+falsepositives:  
+  - Legitimate use of Seatbelt.exe for system diagnostics  
+level: high
